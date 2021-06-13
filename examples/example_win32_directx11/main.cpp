@@ -139,6 +139,51 @@ int main(int, char**)
             ImGui::End();
         }
 
+        ImGui::Begin("Hello, world2!"); 
+
+        ImGui::Text("Layout 0");
+        ImVec2 size = {640, 240};
+        if (ImGui::BeginTable("Table", 2, 0, size))
+        {
+            if (ImGui::TableNextColumn())
+            {
+                ImDrawList* gfx = ImGui::GetBackgroundDrawList();
+                ImVec2 pos      = ImGui::GetCursorScreenPos();
+                ImVec2 pos_     = { pos.x + 320, pos.y + 240 };
+                gfx->AddRectFilled(pos, pos_, ImColor(255, 37, 40));
+
+                ImGui::Button("Button1");
+
+                if (ImGui::TableNextColumn())
+                {
+                    ImVec2 size = { 320, 240 };
+                    if (ImGui::BeginTable("Table 2", 2, 0, size))
+                    {
+                        if (ImGui::TableNextColumn())
+                        {
+                            ImVec2 pos = ImGui::GetCursorScreenPos();
+                            ImVec2 pos_ = { pos.x + 320, pos.y + 240 };
+                            gfx->AddRectFilled(pos, pos_, ImColor(37, 255, 40));
+                            ImGui::Button("Button2");
+                            if (ImGui::TableNextColumn())
+                            {
+                                ImGui::Text("Custom");
+                                ImGui::Button("Button3");
+                            }
+                        }
+                        ImGui::EndTable();
+                    }
+                }
+            }
+            ImGui::EndTable();
+        }
+
+        ImGui::Text("Layout 1");
+
+
+
+        ImGui::End();
+
         // Rendering
         ImGui::Render();
         const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
